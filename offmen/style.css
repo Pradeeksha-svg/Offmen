@@ -1,0 +1,361 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif; /* Consider upgrading to Google Fonts like 'Roboto' for more style */
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #2c2c2c 0%, #4a4a4a 50%, #1a1a1a 100%); /* Enhanced gradient for depth */
+    color: white;
+    line-height: 1.6;
+    animation: fadeIn 1s ease-in; /* Subtle page load animation */
+    
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Navigation Bar */
+nav {
+    background-color: rgba(0, 0, 0, 0.95); /* Darker for contrast */
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Added shadow for depth */
+    backdrop-filter: blur(10px); /* Modern glass effect (if supported) */
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+nav h1 {
+    margin: 0;
+    color: #FFD700; /* Gold accent */
+    font-weight: bold;
+    font-size: 1.8em;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); /* Glowing effect */
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 12px 18px;
+    transition: all 0.3s ease; /* Smoother hover */
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+nav ul li a:hover {
+    background-color: #FFD700;
+    color: black;
+    transform: translateY(-2px); /* Lift effect */
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+}
+
+/* Sections */
+.hero, .content {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 40px 20px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05); /* Subtle overlay for sections */
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Deeper shadows */
+    animation: slideUp 0.8s ease-out; /* Entrance animation */
+}
+
+@keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.hero h2 {
+    font-size: 2.8em;
+    margin-bottom: 15px;
+    color: #FFD700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.content h2 {
+    font-size: 2.2em;
+    color: #FFD700;
+    margin-bottom: 20px;
+}
+
+.hero p, .content p {
+    font-size: 1.1em;
+    max-width: 800px;
+    margin: 0 auto 20px;
+}
+
+/* Image Enhancements */
+.hero img {
+    max-width: 90%;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease;
+}
+
+.hero img:hover {
+    transform: scale(1.05); /* Zoom on hover */
+}
+
+/* Product List Styles (for Ordering Page) */
+.product-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.product {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.2)); /* 3D effect */
+    padding: 25px;
+    margin: 10px;
+    border-radius: 15px;
+    text-align: center;
+    width: 250px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 215, 0, 0.2); /* Subtle gold border */
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+.product h3 {
+    color: #FFD700;
+    margin-bottom: 10px;
+}
+
+.product p {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.product button {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: black;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+}
+
+.product button:hover {
+    background: linear-gradient(45deg, #FFA500, #FF8C00);
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(255, 215, 0, 0.5);
+}
+
+#cart {
+    margin-top: 30px;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #FFD700;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 450px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+label {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #FFD700;
+}
+
+input, textarea {
+    padding: 12px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    background-color: #e0e0e0;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+button[type="submit"], button[onclick] {
+    margin-top: 25px;
+    padding: 15px;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: black;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+}
+
+button[type="submit"]:hover, button[onclick]:hover {
+    background: linear-gradient(45deg, #FFA500, #FF8C00);
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(255, 215, 0, 0.5);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.95);
+    margin-top: 40px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+    color: #ccc;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    nav ul li {
+        margin: 10px 0;
+    }
+    .hero h2 {
+        font-size: 2.2em;
+    }
+    .product {
+        width: 100%;
+        max-width: 300px;
+    }
+    .product-list {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+/* Modal styles for the bill */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+        }
+        .modal-content {
+            background: linear-gradient(135deg, #2c2c2c, #4a4a4a);
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .modal h3 { color: #FFD700; text-align: center; }
+        .bill-item { display: flex; justify-content: space-between; margin: 10px 0; }
+        .bill-total { font-weight: bold; font-size: 1.2em; color: #FFD700; border-top: 1px solid #FFD700; padding-top: 10px; }
+        .modal button { margin: 10px 5px; }
+        .close { float: right; font-size: 28px; cursor: pointer; }
+        /* Feedback Section Styles */
+.feedback {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 40px 20px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.feedback h2 {
+    color: #FFD700;
+    margin-bottom: 30px;
+}
+
+.feedback-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.feedback-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.2));
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.feedback-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+.feedback-card p {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.stars {
+    color: #FFD700;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.feedback-card cite {
+    font-weight: bold;
+    color: #ccc;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .feedback-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    .feedback-card {
+        width: 100%;
+        max-width: 400px;
+    }
+}

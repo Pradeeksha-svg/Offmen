@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offmen Men's Clothing - Ordering</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://js.stripe.com/v3/"></script>  <!-- Stripe library -->
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <img src="images/logo1.png" alt="Offmen Logo" style="height: 60px; margin-right: 10px; vertical-align: middle;"> 
+            <h1>OFFMEN CLOTHING STORE</h1>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="ordering.html">Ordering</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <section class="content">
+        <h2>Place Your Order</h2>
+        <p>Select your Offmen favorites and add to cart. Free shipping on orders over ₹1000! Durable, adventure-ready menswear for the modern explorer.</p>
+        <div class="product-list">
+            <div class="product">
+                <img src="images/shirt1.jpg" alt="Men's Urban Shirt" style="width: 100%; border-radius: 10px; margin-bottom: 10px;">
+                <h3>Men's Urban Shirt</h3>
+                <p>Breathable cotton blend, perfect for city hikes. ₹600</p>
+                <button onclick="addToCart('Urban Shirt', 600, 'price_123456789')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="images/jeans1.jpg" alt="Durable Jeans" style="width: 100%; border-radius: 10px; margin-bottom: 10px;">
+                <h3>Durable Jeans</h3>
+                <p>Rugged denim for tough terrains.      ₹900</p>
+                <button onclick="addToCart('Durable Jeans', 900, 'price_987654321')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="images/tshirt1.jpg" alt="T-shirt" style="width: 100%; border-radius: 10px; margin-bottom: 10px;">
+                <h3>T-shirt</h3>
+                <p>Comfortable cotton T-shirt for everyday urban style. ₹500</p>
+                <button onclick="addToCart('T-shirt', 500, 'price_112233445')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="images/boots.jpeg" alt="Adventure Boots" style="width: 100%; border-radius: 10px; margin-bottom: 10px;">
+                <h3>Adventure Boots</h3>
+                <p>Sturdy leather boots for any path.   ₹1200</p>
+                <button onclick="addToCart('Adventure Boots', 1200, 'price_556677889')">Add to Cart</button>
+            </div>
+        </div>
+        <div id="cart">
+            <h3>Your Cart</h3>
+            <ul id="cart-items"></ul>
+            <p id="cart-total">Total: ₹0.00</p>
+            <button onclick="clearCart()">Clear Cart</button>
+        <button onclick="checkout()">Proceed to Checkout</button>
+        <p style="font-size: 0.9em; margin-top: 20px;">Secure checkout powered by Stripe. Test mode active—use fake card 4242 4242 4242 4242.</p>
+    </section>
+    
+    <!-- Bill Modal -->
+    <div id="bill-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Offmen Clothing Bill</h3>
+            <div id="bill-details"></div>
+            <button onclick="confirmPayment()">Confirm & Pay</button>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+    
+    <script>
+        const stripe = Stripe('pk_test_YOUR_PUBLISHABLE_KEY_HERE');  // Replace with your Stripe Publishable Key
+        let cart = [];
+
+        function addToCart(item, price, stripePriceId) {
+            cart.push({ name: item, price: price, stripeId: stripePriceId });
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            cartItems.innerHTML = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                const li = document.createElement('li');
+                li.textContent = `${item.name} - ₹${item.price.toFixed(2)} `;
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.onclick = () => removeFromCart(index);
+                li.appendChild(removeBtn);
+                cartItems.appendChild(li);
+            });
+            cartTotal.textContent = `Total: ₹${total.toFixed(2)}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCart();
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            showBill();
+        }
+
+        function showBill() {
+            const billDetails = document.getElementById('bill-details');
+            let subtotal = 0;
+            cart.forEach(item => subtotal += item.price);
+            const tax = subtotal * 0.1;  // 10% tax
+            const shipping = subtotal > 1000 ? 0 : 10;  // Free over $100
+            const total = subtotal + tax + shipping;
+
+            billDetails.innerHTML = `
+                <div class="bill-item"><span>Items:</span></div>
+                ${cart.map(item => `<div class="bill-item"><span>${item.name}</span><span>₹${item.price.toFixed(2)}</span></div>`).join('')}
+                <div class="bill-item"><span>Subtotal:</span><span>₹${subtotal.toFixed(2)}</span></div>
+                <div class="bill-item"><span>Tax (10%):</span><span>₹${tax.toFixed(2)}</span></div>
+                <div class="bill-item"><span>Shipping:</span><span>₹${shipping.toFixed(2)}</span></div>
+                <div class="bill-total"><span>Total:</span><span>₹${total.toFixed(2)}</span></div>
+            `;
+            document.getElementById('bill-modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('bill-modal').style.display = 'none';
+        }
+
+        async function confirmPayment() {
+            closeModal();
+            // Proceed to Stripe as before
+            const lineItems = cart.map(item => ({
+                price: item.stripeId,
+                quantity: 1,
+            }));
+
+            // Note: For GitHub Pages, this fetch won't work without a backend. Use Stripe's client-only redirect or switch to Netlify for serverless.
+            // For demo, simulate redirect
+            alert('Redirecting to secure payment...');
+            // In real setup: const response = await fetch('/create-checkout-session', ...);
+            // Then: stripe.redirectToCheckout({ sessionId: session.id });
+        }
+    </script>
+    
+    <footer>
+        <p>&copy; 2023 Offmen Men's Clothing. All rights reserved.</p>
+    </footer>
+</body>
+</html>
